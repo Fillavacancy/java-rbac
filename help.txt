@@ -1,0 +1,6 @@
+1、基于shiro实现权限管理
+2、基于bootstrap文件上传并实现上传进度
+3、集成solrj完成增删改查（solr4.2）
+4、并实现高亮搜索，带过滤条件搜索，多方式排序，拼写检查，自动建议查询词
+5、使用框架
+	spring springMVC mybatis solr shiro bootstrap

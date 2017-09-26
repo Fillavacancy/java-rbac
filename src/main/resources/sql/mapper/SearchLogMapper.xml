@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jrbac.dao.SearchLogDao">
+	<resultMap id="BaseResultMap" type="com.jrbac.entity.SearchLog">
+		<id column="sl_Id" property="slId" jdbcType="TINYINT" />
+		<result column="sl_Content" property="slContent" jdbcType="VARCHAR" />
+		<result column="sl_SearchCount" property="slSearchCount"
+			jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sl_Id, sl_Content, sl_SearchCount
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from jrbac_search_log
+		where sl_Id = #{slId,jdbcType=TINYINT}
+	</select>
+	<select id="selectByContent" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from jrbac_search_log
+		where sl_Content = #{slContent,jdbcType=VARCHAR}
+	</select>
+	<select id="selectSearchLogAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from jrbac_search_log
+		order by sl_SearchCount desc limit #{offset},#{limit}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from jrbac_search_log
+		where sl_Id = #{slId,jdbcType=TINYINT}
+	</delete>
+	<insert id="insertSelective" parameterType="com.jrbac.entity.SearchLog">
+		insert into jrbac_search_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="slId != null">
+				sl_Id,
+			</if>
+			<if test="slContent != null">
+				sl_Content,
+			</if>
+			<if test="slSearchCount != null">
+				sl_SearchCount,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="slId != null">
+				#{slId,jdbcType=TINYINT},
+			</if>
+			<if test="slContent != null">
+				#{slContent,jdbcType=VARCHAR},
+			</if>
+			<if test="slSearchCount != null">
+				#{slSearchCount,jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jrbac.entity.SearchLog">
+		update jrbac_search_log
+		<set>
+			<if test="slContent != null">
+				sl_Content = #{slContent,jdbcType=VARCHAR},
+			</if>
+			<if test="slSearchCount != null">
+				sl_SearchCount = #{slSearchCount,jdbcType=TINYINT},
+			</if>
+		</set>
+		where sl_Id = #{slId,jdbcType=TINYINT}
+	</update>
+</mapper>

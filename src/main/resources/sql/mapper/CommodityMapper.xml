@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jrbac.dao.CommodityDao">
+	<resultMap id="BaseResultMap" type="com.jrbac.entity.Commodity">
+		<id column="com_Id" property="comId" jdbcType="TINYINT" />
+		<result column="com_Name" property="comName" jdbcType="VARCHAR" />
+		<result column="com_Title" property="comTitle" jdbcType="VARCHAR" />
+		<result column="com_Content" property="comContent" jdbcType="VARCHAR" />
+		<result column="com_Price" property="comPrice" jdbcType="DOUBLE" />
+		<result column="com_Number" property="comNumber" jdbcType="INTEGER" />
+		<result column="com_Type" property="comType" jdbcType="VARCHAR" />
+		<result column="com_CreateDate" property="comCreatedate"
+			jdbcType="VARCHAR" />
+		<result column="com_UpDate" property="comUpdate" jdbcType="VARCHAR" />
+		<result column="com_SalesVolume" property="comSalesvolume"
+			jdbcType="INTEGER" />
+		<!--<result column="com_Brand" property="comBrand" jdbcType="VARCHAR" /> -->
+		<result column="com_State" property="comState" jdbcType="BIT" />
+		<result column="com_ImgURL" property="comImgurl" jdbcType="VARCHAR" />
+		<association property="comBrand" column="com_Brand"
+			select="com.jrbac.dao.BrandDao.selectById" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		com_Id, com_Name, com_Title, com_Content, com_Price, com_Number, com_Type,
+		com_CreateDate,
+		com_UpDate, com_SalesVolume, com_Brand, com_State,com_ImgURL
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from jrbac_commodity
+		where com_Id = #{comId,jdbcType=TINYINT}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from jrbac_commodity
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from jrbac_commodity
+		where com_Id = #{comId,jdbcType=TINYINT}
+	</delete>
+	<insert id="insertSelective" useGeneratedKeys="true"
+		keyProperty="comId" parameterType="com.jrbac.entity.Commodity">
+		insert into jrbac_commodity
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="comId != null">
+				com_Id,
+			</if>
+			<if test="comName != null">
+				com_Name,
+			</if>
+			<if test="comTitle != null">
+				com_Title,
+			</if>
+			<if test="comContent != null">
+				com_Content,
+			</if>
+			<if test="comPrice != null">
+				com_Price,
+			</if>
+			<if test="comNumber != null">
+				com_Number,
+			</if>
+			<if test="comType != null">
+				com_Type,
+			</if>
+			<if test="comCreatedate != null">
+				com_CreateDate,
+			</if>
+			<if test="comUpdate != null">
+				com_UpDate,
+			</if>
+			<if test="comSalesvolume != null">
+				com_SalesVolume,
+			</if>
+			<if test="comBrand != null">
+				com_Brand,
+			</if>
+			<if test="comState != null">
+				com_State,
+			</if>
+			<if test="comImgurl != null">
+				com_ImgURL,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="comId != null">
+				#{comId,jdbcType=TINYINT},
+			</if>
+			<if test="comName != null">
+				#{comName,jdbcType=VARCHAR},
+			</if>
+			<if test="comTitle != null">
+				#{comTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="comContent != null">
+				#{comContent,jdbcType=VARCHAR},
+			</if>
+			<if test="comPrice != null">
+				#{comPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="comNumber != null">
+				#{comNumber,jdbcType=INTEGER},
+			</if>
+			<if test="comType != null">
+				#{comType,jdbcType=VARCHAR},
+			</if>
+			<if test="comCreatedate != null">
+				#{comCreatedate,jdbcType=VARCHAR},
+			</if>
+			<if test="comUpdate != null">
+				#{comUpdate,jdbcType=VARCHAR},
+			</if>
+			<if test="comSalesvolume != null">
+				#{comSalesvolume,jdbcType=INTEGER},
+			</if>
+			<if test="comBrand != null">
+				#{comBrand.brId,jdbcType=VARCHAR},
+			</if>
+			<if test="comState != null">
+				#{comState,jdbcType=BIT},
+			</if>
+			<if test="comImgurl != null">
+				#{comImgurl,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jrbac.entity.Commodity">
+		update jrbac_commodity
+		<set>
+			<if test="comName != null">
+				com_Name = #{comName,jdbcType=VARCHAR},
+			</if>
+			<if test="comTitle != null">
+				com_Title = #{comTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="comContent != null">
+				com_Content = #{comContent,jdbcType=VARCHAR},
+			</if>
+			<if test="comPrice != null">
+				com_Price = #{comPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="comNumber != null">
+				com_Number = #{comNumber,jdbcType=INTEGER},
+			</if>
+			<if test="comType != null">
+				com_Type = #{comType,jdbcType=VARCHAR},
+			</if>
+			<if test="comCreatedate != null">
+				com_CreateDate = #{comCreatedate,jdbcType=VARCHAR},
+			</if>
+			<if test="comUpdate != null">
+				com_UpDate = #{comUpdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="comSalesvolume != null">
+				com_SalesVolume = #{comSalesvolume,jdbcType=INTEGER},
+			</if>
+			<if test="comBrand != null">
+				com_Brand = #{comBrand.brId,jdbcType=VARCHAR},
+			</if>
+			<if test="comState != null">
+				com_State = #{comState,jdbcType=BIT},
+			</if>
+			<if test="comImgurl != null">
+				com_ImgURL = #{comImgurl,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where com_Id = #{comId,jdbcType=TINYINT}
+	</update>
+</mapper>

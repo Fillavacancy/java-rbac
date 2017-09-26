@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataConfig>
+	<dataSource name="fromMysql" type="JdbcDataSource" driver="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://127.0.0.1:3306/solr?serverTimezone=UTC" user="root"
+		password="root" />
+	<document>
+		<entity name="commodity" query="select * from product">
+			<field column="id" name="id" />
+			<field column="name" name="pname" />
+			<field column="pic" name="pic" />
+			<field column="price" name="pprice" />
+			<field column="comment" name="comment" />
+			<field column="url" name="purl" />
+			<field column="create" name="create" />
+			<field column="update" name="update" />
+			<field column="category" name="pcategory" />
+		</entity>
+	</document>
+</dataConfig>

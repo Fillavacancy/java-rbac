@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 配置定时器 -->
+	<!-- 配置作业类 -->
+	<bean id="commodityCleanTimer"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<!--配置作业类包路径 -->
+			<bean class="com.jrbac.service.impl.CommodityServiceImpl" />
+		</property>
+		<!--配置定时执行方法 -->
+		<property name="targetMethod" value="autoSmsTime" />
+		<property name="concurrent" value="false" /><!-- 作业不并发调度reevaluationCompute -->
+		<property name="arguments" value="test" />  <!-- 当作业类方法需要传递参数时使用 -->
+	</bean>
+
+	<!-- 配置作业调度触发器 可以根据需要配置 -->
+
+	<!--配置为每天12点执行 -->
+	<bean id="cronTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="commodityCleanTimer" />
+		<!-- 每天12:00运行一次 -->
+		<property name="cronExpression" value="0 0 12 * * ?" /> <!-- 0/100 * * * * ? 每天中午12点触发 -->
+	</bean>
+
+	<!-- 配置 调度工厂 -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!-- 根据需要配置调度工程每天定时执行就用cronTrigger，每隔一定时间用simpleTrigger -->
+				<ref bean="cronTrigger" />
+			</list>
+		</property>
+	</bean>
+</beans>

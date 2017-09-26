@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jrbac.dao.CsdnBlogDao">
+	<resultMap id="BaseResultMap" type="com.jrbac.entity.CsdnBlog">
+		<id column="key" property="key" jdbcType="INTEGER" />
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="date" property="date" jdbcType="VARCHAR" />
+		<result column="tags" property="tags" jdbcType="VARCHAR" />
+		<result column="category" property="category" jdbcType="VARCHAR" />
+		<result column="view" property="view" jdbcType="INTEGER" />
+		<result column="comments" property="comments" jdbcType="INTEGER" />
+		<result column="copyright" property="copyright" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		key, id, title, date, tags, category, view, comments, copyright
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from jrbac_csdnblog
+		where key = #{key,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from jrbac_csdnblog
+		where key = #{key,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.jrbac.entity.CsdnBlog">
+		insert into jrbac_csdnblog (key, id, title,
+		date, tags, category,
+		view, comments, copyright
+		)
+		values (#{key,jdbcType=INTEGER}, #{id,jdbcType=INTEGER},
+		#{title,jdbcType=VARCHAR},
+		#{date,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR},
+		#{view,jdbcType=INTEGER}, #{comments,jdbcType=INTEGER},
+		#{copyright,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.jrbac.entity.CsdnBlog">
+		insert into jrbac_csdnblog
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="key != null">
+				key,
+			</if>
+			<if test="id != null">
+				id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="date != null">
+				date,
+			</if>
+			<if test="tags != null">
+				tags,
+			</if>
+			<if test="category != null">
+				category,
+			</if>
+			<if test="view != null">
+				view,
+			</if>
+			<if test="comments != null">
+				comments,
+			</if>
+			<if test="copyright != null">
+				copyright,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="key != null">
+				#{key,jdbcType=INTEGER},
+			</if>
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="date != null">
+				#{date,jdbcType=VARCHAR},
+			</if>
+			<if test="tags != null">
+				#{tags,jdbcType=VARCHAR},
+			</if>
+			<if test="category != null">
+				#{category,jdbcType=VARCHAR},
+			</if>
+			<if test="view != null">
+				#{view,jdbcType=INTEGER},
+			</if>
+			<if test="comments != null">
+				#{comments,jdbcType=INTEGER},
+			</if>
+			<if test="copyright != null">
+				#{copyright,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jrbac.entity.CsdnBlog">
+		update jrbac_csdnblog
+		<set>
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="date != null">
+				date = #{date,jdbcType=VARCHAR},
+			</if>
+			<if test="tags != null">
+				tags = #{tags,jdbcType=VARCHAR},
+			</if>
+			<if test="category != null">
+				category = #{category,jdbcType=VARCHAR},
+			</if>
+			<if test="view != null">
+				view = #{view,jdbcType=INTEGER},
+			</if>
+			<if test="comments != null">
+				comments = #{comments,jdbcType=INTEGER},
+			</if>
+			<if test="copyright != null">
+				copyright = #{copyright,jdbcType=INTEGER},
+			</if>
+		</set>
+		where key = #{key,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jrbac.entity.CsdnBlog">
+		update jrbac_csdnblog
+		set id = #{id,jdbcType=INTEGER},
+		title = #{title,jdbcType=VARCHAR},
+		date = #{date,jdbcType=VARCHAR},
+		tags = #{tags,jdbcType=VARCHAR},
+		category = #{category,jdbcType=VARCHAR},
+		view = #{view,jdbcType=INTEGER},
+		comments = #{comments,jdbcType=INTEGER},
+		copyright = #{copyright,jdbcType=INTEGER}
+		where key = #{key,jdbcType=INTEGER}
+	</update>
+</mapper>

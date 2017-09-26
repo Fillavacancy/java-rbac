@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jrbac.dao.BrandDao">
+	<resultMap id="BaseResultMap" type="com.jrbac.entity.Brand">
+		<id column="br_Id" property="brId" jdbcType="TINYINT" />
+		<result column="br_Name" property="brName" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectBrandList" resultMap="BaseResultMap">
+		select
+		br_Id, br_Name from jrbac_brand
+	</select>
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select br_Id, br_Name
+		from jrbac_brand
+		where br_Id = #{brId,jdbcType=TINYINT}
+	</select>
+</mapper>
